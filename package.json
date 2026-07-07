@@ -1,0 +1,27 @@
+{
+  "name": "tensor-ui-cli",
+  "version": "0.1.0",
+  "description": "Design system AI terminal — generate beautiful pages with design constraints",
+  "type": "module",
+  "bin": {
+    "tensorui": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "latest",
+    "@inkjs/ui": "^2.0.0",
+    "extract-zip": "^2.0.1",
+    "ink": "^7.1.0",
+    "react": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19.2.17",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.0"
+  }
+}
