@@ -34,7 +34,7 @@ server.tool(
   'Get the full design system specification including brand rules, component constraints, design tokens, layout patterns, and coding conventions. Call this before generating any UI code.',
   async () => {
     if (!agentMd) {
-      return { content: [{ type: 'text', text: 'No design system loaded. Use /login to authenticate and load a design system.' }] }
+      return { content: [{ type: 'text', text: 'No design system loaded. Use /clone <url> to load a design system.' }] }
     }
     return { content: [{ type: 'text', text: agentMd }] }
   },

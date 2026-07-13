@@ -1,8 +1,6 @@
 import { parseArgs } from 'node:util'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import * as os from 'node:os'
-import { execSync } from 'node:child_process'
 import React from 'react'
 import { render } from 'ink'
 import { setModel } from './engine/sdk.js'
@@ -46,106 +44,9 @@ if (values.model) setModel(values.model)
 
 const cwd = process.cwd()
 
-function rewriteImports(dir: string) {
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name)
-    if (entry.isDirectory() && entry.name !== 'node_modules' && entry.name !== '.next') {
-      rewriteImports(full)
-    } else if (entry.isFile() && /\.(tsx?|jsx?)$/.test(entry.name)) {
-      let content = fs.readFileSync(full, 'utf-8')
-      let changed = false
-      const replaced = content
-        .replace(/from\s+['"]@\/components\/ui\/([^'"]+)['"]/g, () => {
-          changed = true
-          return `from '@tensor-ui/core'`
-        })
-        .replace(/from\s+['"]@\/components\/theme-provider['"]/g, () => {
-          changed = true
-          return `from '@tensor-ui/core'`
-        })
-        .replace(/from\s+['"]@\/components\/theme-toggle['"]/g, () => {
-          changed = true
-          return `from '@tensor-ui/core'`
-        })
-        .replace(/from\s+['"]@\/lib\/utils['"]/g, () => {
-          changed = true
-          return `from '@tensor-ui/core'`
-        })
-      if (changed) {
-        const lines = replaced.split('\n')
-        const seen = new Set<string>()
-        const deduped: string[] = []
-        for (const line of lines) {
-          const importMatch = line.match(/^import\s+\{([^}]+)\}\s+from\s+['"]@tensor-ui\/core['"]/)
-          if (importMatch) {
-            const key = '@tensor-ui/core'
-            if (seen.has(key)) {
-              const prevIdx = deduped.findIndex(l => l.includes("from '@tensor-ui/core'") && l.startsWith('import {'))
-              if (prevIdx !== -1) {
-                const prevImports = deduped[prevIdx]!.match(/\{([^}]+)\}/)![1]!.split(',').map(s => s.trim())
-                const newImports = importMatch[1]!.split(',').map(s => s.trim())
-                const merged = [...new Set([...prevImports, ...newImports])].join(', ')
-                deduped[prevIdx] = `import { ${merged} } from '@tensor-ui/core'`
-              }
-            } else {
-              seen.add(key)
-              deduped.push(line)
-            }
-          } else {
-            deduped.push(line)
-          }
-        }
-        fs.writeFileSync(full, deduped.join('\n'))
-      }
-    }
-  }
-}
-
-const DEFAULT_BASE = path.join(os.homedir(), 'Desktop', 'research', 'f1', 'Airbnb-design-system')
 const isEmptyProject = !fs.existsSync(path.join(cwd, 'package.json'))
-
-if (isEmptyProject && fs.existsSync(DEFAULT_BASE)) {
-  const SKIP = new Set(['node_modules', '.next', '.git', 'AGENT.md', 'CLAUDE.md', 'CODEX.md', '.DS_Store', 'components', 'lib'])
-  function copyDir(src: string, dest: string) {
-    if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true })
-    for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-      if (SKIP.has(entry.name)) continue
-      const s = path.join(src, entry.name)
-      const d = path.join(dest, entry.name)
-      if (entry.isDirectory()) copyDir(s, d)
-      else fs.copyFileSync(s, d)
-    }
-  }
-  process.stdout.write('Initializing project from default design system...\n')
-  copyDir(DEFAULT_BASE, cwd)
-
-  const tgzSrc = path.resolve(pkgDir, '..', 'assets', 'tensor-ui-core-0.1.0.tgz')
-  if (fs.existsSync(tgzSrc)) {
-    const tgzDest = path.join(cwd, 'tensor-ui-core-0.1.0.tgz')
-    fs.copyFileSync(tgzSrc, tgzDest)
-  }
-
-  process.stdout.write('Installing dependencies...\n')
-  try {
-    execSync('npm install --legacy-peer-deps', { cwd, stdio: 'inherit' })
-    const tgzLocal = path.join(cwd, 'tensor-ui-core-0.1.0.tgz')
-    if (fs.existsSync(tgzLocal)) {
-      execSync('npm install ./tensor-ui-core-0.1.0.tgz --legacy-peer-deps', { cwd, stdio: 'inherit' })
-      fs.unlinkSync(tgzLocal)
-    }
-  } catch {}
-  process.stdout.write('Ready.\n\n')
-
-  rewriteImports(cwd)
-
-  const globalsCss = path.join(cwd, 'app', 'globals.css')
-  if (fs.existsSync(globalsCss)) {
-    let css = fs.readFileSync(globalsCss, 'utf-8')
-    if (!css.includes('@source')) {
-      css = `@source "../node_modules/@tensor-ui/core/dist";\n` + css
-    }
-    fs.writeFileSync(globalsCss, css)
-  }
+if (isEmptyProject) {
+  process.stdout.write('No project found in current directory. Use /clone <url> to initialize a project.\n\n')
 }
 
 const claudeDir = path.join(cwd, '.claude')

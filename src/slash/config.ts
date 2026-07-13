@@ -8,18 +8,34 @@ export function handleConfig(args: string): Message[] {
   const sub = args.trim()
 
   if (!sub) {
+    const key = process.env.ANTHROPIC_API_KEY
+    const authToken = process.env.ANTHROPIC_AUTH_TOKEN
+    const baseUrl = process.env.ANTHROPIC_BASE_URL
+    const keyDisplay = key ? '****' + key.slice(-4) : authToken ? '****' + authToken.slice(-4) : '(not set)'
+
     const lines = [
       'Configuration',
       '',
-      `  model:    ${getModel()}`,
-      `  api-key:  ${process.env.ANTHROPIC_API_KEY ? '****' + process.env.ANTHROPIC_API_KEY.slice(-4) : '(not set)'}`,
-      `  base-url: ${process.env.ANTHROPIC_BASE_URL || '(default)'}`,
-      `  cwd:      ${process.cwd()}`,
+      `  model:      ${getModel()}`,
+      `  api-key:    ${keyDisplay}`,
+      `  base-url:   ${baseUrl || 'https://api.anthropic.com'}`,
+      `  cwd:        ${process.cwd()}`,
       '',
       'Usage:',
       '  /config model <name>      Switch model',
       '  /config api-key <key>     Set API key',
       '  /config base-url <url>    Set API base URL',
+      '',
+      'Environment Variables (.env):',
+      '  # Anthropic official',
+      '  ANTHROPIC_API_KEY=sk-ant-...',
+      '  ANTHROPIC_BASE_URL=https://api.anthropic.com',
+      '  ANTHROPIC_MODEL=claude-sonnet-4-20250514',
+      '',
+      '  # Anthropic-compatible provider (e.g. DeepSeek)',
+      '  ANTHROPIC_API_KEY=sk-02091b29aca7...',
+      '  ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic',
+      '  ANTHROPIC_MODEL=deepseek-v4-pro',
     ]
     return [{ id: uid(), type: 'info', text: lines.join('\n') }]
   }

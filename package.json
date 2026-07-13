@@ -1,15 +1,22 @@
 {
-  "name": "tensor-ui-cli",
+  "name": "@tensorzhang/tensorui",
   "version": "0.1.0",
   "description": "Design system AI terminal — generate beautiful pages with design constraints",
   "type": "module",
+  "license": "MIT",
+  "keywords": ["design-system", "ai", "cli", "ui", "tensorui", "shadcn"],
   "bin": {
     "tensorui": "./dist/index.js"
   },
+  "files": [
+    "dist",
+    "assets"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "latest",
