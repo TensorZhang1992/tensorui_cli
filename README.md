@@ -236,9 +236,10 @@ tensorui.cn (Studio)          CLI (终端)
 
 ## Community / 社区
 
-- [Telegram](https://t.me/tensorui)
-- [Discord](https://discord.gg/tensorui)
-- [X (Twitter)](https://x.com/tensorui)
+- [Telegram Group](https://telegram.me/+MY--FH-Tq-BjZjg9)
+- WeChat / 微信群：
+
+<img src="resource/wechat-group.jpg" alt="WeChat Group QR" width="300" />
 
 ## License / 许可证
 
