@@ -8,8 +8,6 @@ export const SLASH_COMMANDS = [
   '/model',
   '/config',
   '/resume',
-  '/login',
-  '/logout',
 ]
 
 interface InputAreaProps {

@@ -4,7 +4,7 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { getModel } from '../engine/sdk.js'
-import { canUse, applyProxyEnv } from '../engine/auth.js'
+import { canUse } from '../engine/auth.js'
 import type { Message } from '../components/MessageBlock.js'
 import { handleSlashCommand } from '../slash/index.js'
 
@@ -150,8 +150,6 @@ export function useAgent(options: UseAgentOptions = {}) {
       addMessage({ id: uid(), type: 'error', text: access.reason! })
       return
     }
-
-    applyProxyEnv()
 
     setIsLoading(true)
     setActiveText('')

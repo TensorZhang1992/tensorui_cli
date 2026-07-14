@@ -1,8 +1,6 @@
 import type { Message } from '../components/MessageBlock.js'
 import { handleClone } from './clone.js'
 import { handleModel } from './model.js'
-import { handleLogin } from './login.js'
-import { handleLogout } from './logout.js'
 import { handleHelp } from './help.js'
 import { handleConfig } from './config.js'
 import { handleResume } from './resume.js'
@@ -13,8 +11,6 @@ const commands: Record<string, SlashHandler> = {
   clone: handleClone,
   model: handleModel,
   config: handleConfig,
-  login: handleLogin,
-  logout: handleLogout,
   help: handleHelp,
   resume: handleResume,
 }
