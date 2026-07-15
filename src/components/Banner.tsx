@@ -10,7 +10,7 @@ export default function Banner() {
   const cols = process.stdout.columns || 80
   const model = getModel()
 
-  const title = ` tensorui v0.3.0 `
+  const title = ` tensorui v1.0.0 `
   const dashCount = Math.max(0, cols - title.length - 4)
   const topLine = '── ' + title + '─'.repeat(dashCount)
   const bottomLine = '─'.repeat(cols)
