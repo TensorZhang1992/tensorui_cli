@@ -29,6 +29,7 @@ export default function Banner() {
       <Text> </Text>
       <Text dimColor>  Tips: 直接输入自然语言生成代码，或用 /clone 加载设计系统</Text>
       <Text dimColor>  快速体验 Airbnb 风格: <Text bold>/quick</Text></Text>
+      <Text dimColor>  定义你的设计规范: <Text bold>http://www.tensorui.cn/</Text></Text>
       <Text> </Text>
       <Text dimColor>{bottomLine}</Text>
     </Box>
