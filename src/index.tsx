@@ -44,9 +44,11 @@ if (values.model) setModel(values.model)
 
 const cwd = process.cwd()
 
+const DEFAULT_CLONE_URL = 'http://www.tensorui.cn/api/projects/1e69bd8c-c014-4ccd-adb3-ec7d4061b5ba/download'
+
 const isEmptyProject = !fs.existsSync(path.join(cwd, 'package.json'))
 if (isEmptyProject) {
-  process.stdout.write('No project found in current directory. Use /clone <url> to initialize a project.\n\n')
+  process.stdout.write(`No project found. Run this to get started:\n  /clone ${DEFAULT_CLONE_URL}\n\n`)
 }
 
 const claudeDir = path.join(cwd, '.claude')

@@ -3,6 +3,7 @@ import { Box, Text } from 'ink'
 import { TextInput } from '@inkjs/ui'
 
 export const SLASH_COMMANDS = [
+  '/quick',
   '/help',
   '/clone',
   '/model',

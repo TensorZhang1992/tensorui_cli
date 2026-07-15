@@ -10,7 +10,7 @@ export default function Banner() {
   const cols = process.stdout.columns || 80
   const model = getModel()
 
-  const title = ` tensorui v0.2.0 `
+  const title = ` tensorui v0.3.0 `
   const dashCount = Math.max(0, cols - title.length - 4)
   const topLine = '── ' + title + '─'.repeat(dashCount)
   const bottomLine = '─'.repeat(cols)
@@ -28,6 +28,7 @@ export default function Banner() {
       {statusLine}
       <Text> </Text>
       <Text dimColor>  Tips: 直接输入自然语言生成代码，或用 /clone 加载设计系统</Text>
+      <Text dimColor>  快速体验 Airbnb 风格: <Text bold>/quick</Text></Text>
       <Text> </Text>
       <Text dimColor>{bottomLine}</Text>
     </Box>

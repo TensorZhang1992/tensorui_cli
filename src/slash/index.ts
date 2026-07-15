@@ -5,10 +5,13 @@ import { handleHelp } from './help.js'
 import { handleConfig } from './config.js'
 import { handleResume } from './resume.js'
 
+const DEFAULT_CLONE_URL = 'http://www.tensorui.cn/api/projects/1e69bd8c-c014-4ccd-adb3-ec7d4061b5ba/download'
+
 type SlashHandler = (args: string) => Message[] | Promise<Message[]>
 
 const commands: Record<string, SlashHandler> = {
   clone: handleClone,
+  quick: () => handleClone(DEFAULT_CLONE_URL),
   model: handleModel,
   config: handleConfig,
   help: handleHelp,
