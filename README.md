@@ -24,6 +24,8 @@ It uses the [Claude Agent SDK](https://github.com/anthropics/claude-code) under 
 ### Features
 
 - **Design-constrained generation** — AI follows your design rules, not generic patterns
+- **`/quick` one-command start** — try the Airbnb-style design system instantly
+- **Download progress bar** — visual feedback during `/clone` downloads
 - **MCP design system server** — brand colors, typography, spacing, and component specs are injected via MCP tools
 - **Session resume** — pick up where you left off with `--continue` or `--resume <id>`
 - **Provider-agnostic** — works with Anthropic, DeepSeek, or any Anthropic-compatible API
@@ -56,9 +58,13 @@ cp .env.example .env
 
 ```bash
 # Start the CLI in your project directory
+mkdir my-app && cd my-app
 tensorui
 
-# Clone your design system (copy the URL from your project library on tensorui.cn)
+# Quick start — clone Airbnb-style design system in one command
+/quick
+
+# Or clone any design system URL from your Studio project library
 /clone https://tensorui.cn/api/projects/xxx/download
 
 # Now just type naturally
@@ -102,6 +108,7 @@ tensorui --resume <id>       # Resume specific session
 
 | Command | Description |
 |---------|-------------|
+| `/quick` | Quick start with Airbnb-style design system |
 | `/clone <url>` | Clone a design system from a URL |
 | `/model [name]` | Show or switch the current model |
 | `/config [key val]` | View or update configuration |
@@ -135,6 +142,8 @@ TensorUI CLI 是 **[Lovable](https://lovable.dev) 的 CLI 版本** — 一个 AI
 ### 特性
 
 - **设计约束生成** — AI 遵循你的设计规则，而非通用模式
+- **`/quick` 一键启动** — 快速体验 Airbnb 风格设计系统
+- **下载进度条** — clone 时显示下载进度
 - **MCP 设计系统服务器** — 品牌色、字体、间距和组件规范通过 MCP 工具注入
 - **会话恢复** — 使用 `--continue` 或 `--resume <id>` 继续上次的工作
 - **多供应商支持** — 兼容 Anthropic、DeepSeek 或任何 Anthropic 兼容 API
@@ -167,9 +176,13 @@ cp .env.example .env
 
 ```bash
 # 在项目目录启动 CLI
+mkdir my-app && cd my-app
 tensorui
 
-# 克隆你的设计系统（从 tensorui.cn 项目库复制 URL）
+# 快速体验 — 一键克隆 Airbnb 风格设计系统
+/quick
+
+# 或者从 Studio 项目库复制 URL 来克隆
 /clone https://tensorui.cn/api/projects/xxx/download
 
 # 用自然语言描述你想要的页面
@@ -213,6 +226,7 @@ tensorui --resume <id>       # 恢复指定会话
 
 | 命令 | 说明 |
 |------|------|
+| `/quick` | 一键体验 Airbnb 风格设计系统 |
 | `/clone <url>` | 从 URL 克隆设计系统 |
 | `/model [name]` | 查看或切换当前模型 |
 | `/config [key val]` | 查看或更新配置 |
